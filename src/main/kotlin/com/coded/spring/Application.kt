@@ -1,4 +1,4 @@
-package com.coded.spring.ordering
+package com.coded.spring
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
