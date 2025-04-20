@@ -16,6 +16,8 @@ class UsersService(
             username = request.username,
             password = encoder.encode(request.password),
         )
+        if (request.username.isBlank()){
+            throw IllegalArgumentException("username not correct")}
 
         val savedUser=  usersRepository.save(myNewUserEntity)
 
@@ -30,6 +32,7 @@ class UsersService(
     }
 
 }
+
 
 fun isValidPassword(password: String): Boolean {
 

@@ -1,5 +1,6 @@
 package com.coded.spring.users
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -21,11 +22,12 @@ class UsersController(
 
     @PostMapping("/users/v1/create")
     fun createUser(@RequestBody request: AddUserRequest):Any{
-        if (isValidPassword(request.password)){
-            val newUser = usersService.createUser(request)
-            return newUser
+        return try {
+            usersService.createUser(request)
+            ResponseEntity.ok("user is good to go")
+        } catch (e: IllegalArgumentException){
+            ResponseEntity.badRequest().body(e.message)
         }
-        return "your password is invalid"
 
 
     }

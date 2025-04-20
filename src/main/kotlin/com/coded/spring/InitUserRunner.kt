@@ -19,7 +19,7 @@ class InitUserRunner {
         val user = UserEntity(
             name = "Meshal",
             age = 24,
-            username = "meshal77",
+            username = "meshal7",
             password = passwordEncoder.encode("Meshal99775283")
         )
         if (usersRepository.findByUsername(user.username) == null) {
@@ -33,11 +33,11 @@ class InitUserRunner {
 //            userRepository.findByUsername(user.username)
 //        }
 //        catch (){
-//
+
         }
     }
 }
 
 fun main(args: Array<String>) {
-    runApplication<Application>(*args)
+    runApplication<Application>(*args).close()
 }

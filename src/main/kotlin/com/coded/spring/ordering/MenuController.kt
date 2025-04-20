@@ -11,7 +11,7 @@ class MenuController(
     val menuService: MenuService
 ){
 
-    @GetMapping("/public/users/v1/list/menu")
+    @GetMapping("/Public/menu")
     fun sayUsers() = menuRepository.findAll()
 
 
