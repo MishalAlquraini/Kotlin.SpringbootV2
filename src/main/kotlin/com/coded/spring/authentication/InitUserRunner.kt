@@ -1,5 +1,6 @@
-package com.coded.spring
+package com.coded.spring.authentication
 
+import com.coded.spring.Application
 import com.coded.spring.users.UserEntity
 import com.coded.spring.users.UsersRepository
 import org.springframework.boot.CommandLineRunner
