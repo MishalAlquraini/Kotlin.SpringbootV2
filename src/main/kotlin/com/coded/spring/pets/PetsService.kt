@@ -1,6 +1,8 @@
 package com.coded.spring.pets
 
 import jakarta.inject.Named
+import com.hazelcast.logging.Logger
+
 
 
 @Named

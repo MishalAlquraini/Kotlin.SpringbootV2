@@ -13,10 +13,10 @@ class MenuController(
 ){
 
     @GetMapping("/Public/menu")
-    fun sayUsers() = menuRepository.findAll()
+    fun sayUsers() = menuService.listMenu()
 
 
-    @PostMapping("/users/v1/create/menu")
+    @PostMapping("Public/users/v1/create/menu")
     fun menuAdd(@RequestBody requestMenu: RequestMenu): Any {
 //        val newMenu = menuService.addMenu(request)
         return ResponseEntity.ok().body(menuService.addMenu(requestMenu))

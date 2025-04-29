@@ -13,10 +13,10 @@ class ordersController(
     val itemsRepository: ItemsRepository
 ){
 
-    @GetMapping("/orders/v1/list")
+    @GetMapping("Public/orders/v1/list")
     fun showUsers() = ordersRepository.findAll()
 
-    @PostMapping("/orders")
+    @PostMapping("Public/orders")
     fun sayOrder( @RequestBody request: OrderRequest) : OrderResponse {
         val result = ordersService.createOrder(request.userId, request.items)
         // return OrderResponse(result.userId, result.items) both ways r correct

@@ -1,5 +1,6 @@
 package com.coded.spring.ordering
 
+import com.coded.spring.serverCache
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -15,16 +16,24 @@ class MenuService(
         return menuRepository.save(newMenu)
     }
 
-    fun listMenu(): List<Menu> = menuRepository.findAll().map {
+    fun listMenu(): List<Menu>{
+        val cachedMenu = menuCache["Menu"]
+        if (cachedMenu?.size == 0 || cachedMenu == null){
+            println("no new meals")
+            val menu = menuRepository.findAll().map {
         Menu(
             menuName = it.name,
             price = it.price
-        )
+        ) }
+            menuCache.put("Menu", menu)
+            return menu
+        }
+        return cachedMenu
     }
 
 }
 
-
+val menuCache = serverCache.getMap<String, List<Menu>>("Menu")
 
 
 data class Menu(
