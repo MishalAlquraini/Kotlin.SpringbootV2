@@ -1,5 +1,6 @@
 package com.coded.spring.ordering
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,9 +17,9 @@ class MenuController(
 
 
     @PostMapping("/users/v1/create/menu")
-    fun menuAdd(@RequestBody request: RequestMenu): MenuEntity {
-        val newMenu = menuService.addMenu(request)
-        return newMenu
+    fun menuAdd(@RequestBody requestMenu: RequestMenu): Any {
+//        val newMenu = menuService.addMenu(request)
+        return ResponseEntity.ok().body(menuService.addMenu(requestMenu))
     }
 
 }

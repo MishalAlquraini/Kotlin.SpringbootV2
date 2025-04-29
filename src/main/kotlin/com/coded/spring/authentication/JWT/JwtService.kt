@@ -3,14 +3,18 @@ package com.coded.spring.authentication.JWT
 
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.crypto.SecretKey
 
 @Component
-class JwtService {
-
-    private val secretKey: SecretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256)
+class JwtService (
+    @Value("\${jwt-secret}")
+    private val secretKeyString: String
+){
+    private val secretKey: SecretKey = Keys.hmacShaKeyFor(secretKeyString.encodeToByteArray())
+//    private val secretKey: SecretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256)
     private val expirationMs: Long = 1000 * 60 * 60
 
     fun generateToken(username: String): String {

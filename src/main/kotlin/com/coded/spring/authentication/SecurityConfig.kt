@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
+@EnableWebSecurity
 class SecurityConf (
     private val userDetailsService: UserDetailsService,
     private val jwtAuthFilter: JwtAuthenticationFilter,
@@ -43,7 +44,7 @@ class SecurityConf (
 //                it.defaultSuccessUrl("/Public/menu", true)}
 //            .userDetailsService(userDetailsService)
 //        return http.build()
-            it.requestMatchers("/auth/**", "/users/v1/**").permitAll()
+            it.requestMatchers("/auth/**", "/users/v1/**","/api-docs","/welcome").permitAll()
                 .anyRequest().authenticated()
         }
             .sessionManagement {
