@@ -1,9 +1,11 @@
 package com.coded.spring.authentication.JWT
 
+import com.coded.spring.users.UsersService
 import org.springframework.security.authentication.*
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.*
+import java.security.Principal
 
 
 @RestController
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.*
 class AuthenticationController(
     private val authenticationManager: AuthenticationManager,
     private val userDetailsService: UserDetailsService,
-    private val jwtService: JwtService
+    private val jwtService: JwtService,
+    private val usersService: UsersService
 ) {
 
     @PostMapping("/login")
@@ -27,6 +30,14 @@ class AuthenticationController(
             throw UsernameNotFoundException("Invalid user request!")
         }
     }
+    @PostMapping("/check-token")
+    fun checkToken(
+        principal: Principal
+    ): CheckTokenResponse {
+        return CheckTokenResponse(
+            userId = usersService.findByUsername(principal.name)
+        )
+    }
 }
 
 data class AuthenticationRequest(
@@ -36,4 +47,8 @@ data class AuthenticationRequest(
 
 data class AuthenticationResponse(
     val token: String
+)
+
+data class CheckTokenResponse(
+    val userId: Long
 )

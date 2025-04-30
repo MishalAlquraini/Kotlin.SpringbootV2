@@ -31,6 +31,11 @@ class UsersService(
         )
     }
 
+    fun findByUsername(name: String): Long {
+       return usersRepository.findByUsername(name)?.id ?:
+       throw  IllegalArgumentException("username not found")
+    }
+
 }
 
 
